@@ -11,6 +11,7 @@ class Token:
 # a list of pinite tokens
 PT_INT = "INT"
 PT_FLOAT = "FLOAT"
+PT_STRING = "STR"
 PT_PLUS = "PLUS"
 PT_MINUS = "MINUS"
 PT_MUL = "MUL"
@@ -40,8 +41,13 @@ class Pinite:
                 self.move()
 
             # check for integers and floats
-            if self.current_char.isnumeric():
+            elif self.current_char.isnumeric():
                 tokens.append(self.build_number())
+
+            # check for strings
+            elif self.current_char == "\"":
+                self.move()
+                tokens.append(self.build_string())
 
             # check for operations
             elif self.current_char == "+":
@@ -79,3 +85,17 @@ class Pinite:
             self.move()
         # return the number
         return Token(PT_INT, int(number)) if dot_count == 0 else Token(PT_FLOAT, float(number))
+
+    # a function to build a string after quotation
+    def build_string(self):
+        string = ""
+        while self.current_char and self.current_char != "\"":
+            string += self.current_char
+            self.move()
+        print(string)
+        # if the string is not closed
+        if not self.current_char:
+            return "Invalid line!"
+        else:
+            self.move()
+            return Token(PT_STRING, string)
