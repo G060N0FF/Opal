@@ -1,7 +1,11 @@
+# import our language
+import pinite
+
 # read lines from console
-print("Welcome to Painite. Type 'quit' to exit.")
+print("Welcome to Pinite. Type 'quit' to exit.")
 while True:
-    line = input("Painite > ")
+    line = input("Pinite > ")
     if line == "quit":
         break
-    print(line)
+    line_reader = pinite.Pinite(line)
+    print(line_reader.get_tokens())
