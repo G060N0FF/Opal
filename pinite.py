@@ -16,6 +16,8 @@ PT_PLUS = "PLUS"
 PT_MINUS = "MINUS"
 PT_MUL = "MUL"
 PT_DIV = "DIV"
+PT_L_PARENTHESES = "L_PAR"
+PT_R_PARENTHESES = "R_PAR"
 
 
 # a class that reads our programming language
@@ -61,6 +63,14 @@ class Pinite:
                 self.move()
             elif self.current_char == "/":
                 tokens.append(Token(PT_DIV))
+                self.move()
+
+            # check for parentheses
+            elif self.current_char == "(":
+                tokens.append(Token(PT_L_PARENTHESES))
+                self.move()
+            elif self.current_char == ")":
+                tokens.append(Token(PT_R_PARENTHESES))
                 self.move()
 
             # if the symbol is not recognized
